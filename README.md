@@ -14,6 +14,16 @@ Uses Highstocks to display charts.
 
 * I can see changes in real-time when any other user adds or removes a stock. For this you will need to use Web Sockets.
 
+
+#### Deployment
+
+* Project root .env file has the following items:
+```
+MONGODB_URI
+SESSION_SECRET
+PORT
+```
+
 #### Demo
 Demo is currently running at Heroku. [Click here to access it.](http://fcc-stockmarket.herokuapp.com/)
 

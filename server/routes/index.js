@@ -2,6 +2,7 @@
 module.exports = function (app, dirname, passport) {
 
 	require('./static')(app, dirname);
+	require('./auth/local')(app, passport);
 
 	app.get('/', function (req, res) {
 		res.render('index.ejs', {user: req.user});
@@ -19,7 +20,7 @@ module.exports = function (app, dirname, passport) {
 }
 
 function isLoggedIn(req, res, next) {
-	if (req.isAuthenticated()) 
+	if (req.isAuthenticated())
 		return next();
 	else
 		res.redirect('/login');

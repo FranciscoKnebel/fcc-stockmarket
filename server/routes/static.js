@@ -1,10 +1,10 @@
 var express = require('express');
 
 module.exports = function (app, dirname) {
-	app.use('/css', express.static(dirname + '/client/css'));
-	app.use('/js', express.static(dirname + '/client/js'));
-	app.use('/img', express.static(dirname + '/client/img'));
-	app.use('/video', express.static(dirname + '/client/video'));
+	app.use('/css', express.static(dirname + '/public/css'));
+	app.use('/js', express.static(dirname + '/public/js'));
+	app.use('/img', express.static(dirname + '/public/img'));
+	app.use('/video', express.static(dirname + '/public/video'));
 
 	app.use('/js', express.static(dirname + '/node_modules/semantic-ui/dist/')); // redirect semantic JS
 	app.use('/js', express.static(dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
