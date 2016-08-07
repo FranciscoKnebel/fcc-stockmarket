@@ -4,7 +4,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta charset="utf-8">
-		<title>Stock Market</title>
+		<title>Stock Market - Profile</title>
 
 		<% include snippets/CSS %>
 		<% include snippets/analytics %>
@@ -12,10 +12,186 @@
 	<body>
 		<% include snippets/navbar %>
 
-		<div class=""></div>
+		<div class="ui container" id="top" ng-app="myapp">
+			<div class="ui segment" ng-controller="stocks">
+				<highchart id="chartContainer" config="chartConfig"></highchart>
+
+				<form class="">
+					<div class="ui right labeled left icon input">
+						<i class="line chart icon"></i>
+						<input type="text" placeholder="Stock name..." name="newStock" ng-model="newStock">
+						<button type="submit" name="button" class="ui button label" ng-click="addStock()">Add Stock</button>
+					</div>
+					<button type="button" name="button" class="ui button primary" ng-click="addSeries()">Add Series</button>
+
+				</form>
+
+				<div class="ui cards">
+					<div class="card" ng-repeat="stock in stocks">
+						<div class="content">
+							<button class="ui red button" type="button" name="button" ng-click="removeStock(stock)">Delete</button>
+							<div class="header">
+								{{stock}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
 		<% include snippets/footer %>
 
 		<% include snippets/JS %>
+		<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.js'></script>
+		<script src="/js/highstock.js"></script>
+		<script src="/js/highcharts-ng.js"></script>
+		<script type="text/javascript">
+
+			function findOptionIndex(array, value) {
+				for (var i = 0; i < array.length; i++) {
+					if (array[i] == value) {
+						return i;
+					}
+				}
+				return null;
+			}
+
+			var app = angular.module('myapp', ["highcharts-ng"]);
+
+			app.controller('stocks', function($scope, $http, $timeout) {
+				<% if(user.stocks[0]) { %>
+				$scope.stocks = [<% for(var i = 0; i < user.stocks.length -1; i++) { %>'<%= user.stocks[i] %>', <% } %>'<%= user.stocks[i] %>']<% } %>
+
+				$scope.addStock = function() {
+					let obj = {
+						stock: $scope.newStock
+					}
+					$http.post("/stock/new", obj).then(function(res) {
+						$scope.stocks.push(obj.stock);
+						console.log(res);
+					}, function(err) {
+						console.error(err);
+					});
+				}
+
+				$scope.removeStock = function(stock) {
+					let obj = {
+						stock: stock
+					}
+
+					$http.delete("/stock", obj).then(function(res) {
+						var index = findOptionIndex($scope.stocks, obj.stock);
+						$scope.stocks.splice(index, 0);
+					}, function(err) {
+						console.error(err);
+					})
+				}
+
+				$scope.chartConfig = {
+					options: {
+						chart: {
+							zoomType: 'x'
+						},
+						rangeSelector: {
+							enabled: true
+						},
+						navigator: {
+							enabled: true
+						}
+					},
+					series: [],
+					title: {
+						text: 'Stock Market'
+					},
+					useHighStocks: true
+				}
+
+				var id = 0;
+				$scope.addSeries = function() {
+					$scope.chartConfig.series.push({
+						id: id++,
+						data: [
+							[
+								1147651200000, 23.15 + id
+							],
+							[
+								1147737600000, 23.01 + id
+							],
+							[
+								1147824000000, 22.73 + id
+							],
+							[
+								1147910400000, 22.83 + id
+							],
+							[
+								1147996800000, 22.56 + id
+							],
+							[
+								1148256000000, 22.88 + id
+							],
+							[
+								1148342400000, 22.79 + id
+							],
+							[
+								1148428800000, 23.50 + id
+							],
+							[
+								1148515200000, 23.74 + id
+							],
+							[
+								1148601600000, 23.72 + id
+							],
+							[
+								1148947200000, 23.15 + id
+							],
+							[
+								1149033600000, 22.65 + id
+							]
+						]
+					}, {
+						id: id++,
+						data: [
+							[
+								1147651200000, 25.15 + id
+							],
+							[
+								1147737600000, 25.01 + id
+							],
+							[
+								1147824000000, 25.73 + id
+							],
+							[
+								1147910400000, 25.83 + id
+							],
+							[
+								1147996800000, 25.56 + id
+							],
+							[
+								1148256000000, 25.88 + id
+							],
+							[
+								1148342400000, 25.79 + id
+							],
+							[
+								1148428800000, 25.50 + id
+							],
+							[
+								1148515200000, 26.74 + id
+							],
+							[
+								1148601600000, 26.72 + id
+							],
+							[
+								1148947200000, 26.15 + id
+							],
+							[
+								1149033600000, 26.65 + id
+							]
+						]
+
+					});
+				}
+			});
+		</script>
 	</body>
 </html>

@@ -3,6 +3,7 @@ module.exports = function (app, dirname, passport) {
 
 	require('./static')(app, dirname);
 	require('./auth/local')(app, passport);
+	require('./api')(app, dirname);
 
 	app.get('/', function (req, res) {
 		res.render('index.ejs', {user: req.user});
@@ -14,7 +15,7 @@ module.exports = function (app, dirname, passport) {
 		res.redirect('/');
 	});
 
-	app.get('/profile', function (req, res) {
+	app.get('/profile', isLoggedIn, function (req, res) {
 		res.render('profile.ejs', {user: req.user});
 	});
 }
