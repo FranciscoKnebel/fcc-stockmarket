@@ -8,14 +8,69 @@
 
 		<% include snippets/CSS %>
 		<% include snippets/analytics %>
+		<link rel="stylesheet" href="/css/background.css">
 	</head>
 	<body>
 		<% include snippets/navbar %>
 
-		<div class=""></div>
+		<div id="large-header" class="large-header">
+			<canvas id="demo-canvas"></canvas>
+			<div class="main-title">
+				<div class="ui container">
+					<div class="ui centered card">
+						<div class="ui segment">
+							<div class="content">
+								<h2 class="ui center aligned icon header">
+									<i class="circular line chart icon"></i>
+									Stock Market
+								</h2>
+							</div>
+
+							<h4 class="ui horizontal divider header">
+								<i class="tag icon"></i>
+								Description
+							</h4>
+
+							<h4>
+								Stock Market web application.
+								<br>
+								The user can create an account and view data from their chosen stocks.
+								<br>
+								You can add, remove and change your stocks in real time.
+								<br>
+								Uses
+								<a href="https://github.com/pilwon/node-yahoo-finance" target="_blank">yahoo-finance</a>
+								for obtaining stock data.
+								<br>
+								Uses
+								<a href="https://github.com/highcharts/highcharts" target="_blank">Highcharts</a>
+								to display charts, along with
+								<a href="https://github.com/pablojim/highcharts-ng" target="_blank">highcharts-ng</a>.
+							</h3>
+
+							<h4 class="ui horizontal divider">User Stories</h4>
+
+							<div class="ui relaxed bulleted animated list">
+								<div class="item">I can view a graph displaying the recent trend lines for each added stock.</div>
+								<div class="item">I can add new stocks by their symbol name.</div>
+								<div class="item">I can remove stocks.</div>
+								<div class="item">I can see changes in real-time when any other user adds or removes a stock.</div>
+							</div>
+
+						</div>
+						<a class="ui bottom attached green button" href="/profile">
+							<i class="sign in icon"></i>
+							Go to your profile
+						</a>
+					</div>
+
+				</div>
+			</div>
+		</div>
 
 		<% include snippets/footer %>
-
 		<% include snippets/JS %>
+
+		<% include snippets/JSbackground %>
 	</body>
 </html>

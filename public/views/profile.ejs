@@ -16,27 +16,31 @@
 			<div class="ui segment">
 				<highchart id="chartContainer" config="chartConfig" class="disabled"></highchart>
 
-				<form class="">
+				<form>
 					<div class="ui right labeled left icon input">
 						<i class="line chart icon"></i>
 						<input type="text" placeholder="Stock name..." name="newStock" ng-model="newStock">
 						<button type="submit" name="button" class="ui button secondary label" ng-click="addStock()">Add Stock</button>
 					</div>
 				</form>
+				<div class="ui dimmer" ng-class="{active: loading}">
+					<div class="ui huge indeterminate text loader">
+						Loading
+					</div>
+				</div>
 			</div>
 
-			<div class="ui segment" ng-show="message">
+			<div class="ui big negative message" ng-show="message">
+				<i class="close icon" ng-click="closeMessage()"></i>
 				<div class="header">
 					Oops!
 				</div>
-				<div class="content">
-					{{message}}
-				</div>
+				{{message}}
 			</div>
 
-			<div class="ui segment">
+			<div class="ui segment nojs" ng-show="stocks" ng-class="{loading: loading}">
 				<div class="ui six doubling cards">
-					<div class="ui raised card" ng-repeat="stock in stocks">
+					<div class="ui raised blue card" ng-repeat="stock in stocks">
 						<div class="content">
 							<div class="header">
 								{{stock.symbol}}
@@ -45,10 +49,10 @@
 								{{stock.name}}
 							</div>
 						</div>
-						<div class="ui bottom attached red button" ng-click="removeStock(stock)">
+						<button class="ui bottom attached red button" ng-click="removeStock(stock)">
 							<i class="close icon"></i>
 							Delete
-						</div>
+						</button>
 					</div>
 				</div>
 			</div>
@@ -66,4 +70,6 @@
 		</script>
 
 	</body>
+</html>
+/body>
 </html>
